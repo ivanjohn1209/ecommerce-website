@@ -21,7 +21,7 @@ for (let i = 0; i < featuredProducts.length; i++) {
 </div>
 <div class="aa ao dn lx of yy zd adg adt aqs">
     <div aria-hidden="true" class="aa ao cc nv amm amt bbc"></div>
-    <p class="ab avy awf bag">$${element.price}</p>
+    <p class="ab avy awf bag">&#8369;${element.price}</p>
 </div>
 </div>
 <div class="lk"><a href="#" class="ab lx yz ze adu aez agy aih arl aru avz awd axu bic">Add to

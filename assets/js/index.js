@@ -1,8 +1,9 @@
 const featuredProducts = [
-    { img: "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg", name: "Basic Tee", price: 35, id: 1 },
-    { img: "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg", name: "Basic Tee", price: 35, id: 2 },
-    { img: "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg", name: "Basic Tee", price: 35, id: 3 },
-    { img: "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg", name: "Basic Tee", price: 35, id: 4 },
+    { img: "https://cdn.alloallo.media/catalog/product/apple/iphone/iphone-13-pro/iphone-13-pro-silver.jpg", gb: "128gb",name: "iPhone 13 Pro Max", price: 41999, id: 25},
+    { img: "https://s3.amazonaws.com/iwm-ebay/images/products/iPhone+13+Pro+Max/iPhone+13+Pro+Max+Grey.jpg", gb: "256gb",name: "iPhone 13 Pro Max", price: 43999, id: 26},
+    { img: "https://powermaccenter.com/cdn/shop/files/iPhone_14_Pro_Max_Deep_Purple_PDP_Image_Position-1a__en-US_82df8721-1d88-40d2-8d9c-37820092a2a0.jpg?v=1705404256", gb: "128gb",name: "iPhone 14 Pro Max", price: 50999, id: 27},
+    { img: "https://powermaccenter.com/cdn/shop/files/iPhone_14_Pro_Max_Gold_PDP_Image_Position-1a__en-US_47cb0bb0-2490-4486-8f57-5caae2ecf5b1.jpg?v=1705404341", gb: "256gb",name: "iPhone 14 Pro Max", price: 53999, id: 28},
+
 ]
 
 for (let i = 0; i < featuredProducts.length; i++) {

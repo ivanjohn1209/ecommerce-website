@@ -1,5 +1,6 @@
 let cartListItems = localStorage.getItem('cart-items');
 let listCartItems = cartListItems ? JSON.parse(cartListItems) : [];
+var shippingFee = 100;
 function formatAndMergeItems(arr) {
     // Create an object to store items by their id
     const itemsById = {};
@@ -25,7 +26,7 @@ function formatAndMergeItems(arr) {
 // Call the function
 const formattedItems = formatAndMergeItems(listCartItems);
 
-
+var subtotal = 0;
 for (let i = 0; i < formattedItems.length; i++) {
     const element = formattedItems[i];
     let li = document.createElement('li');
@@ -76,6 +77,7 @@ for (let i = 0; i < formattedItems.length; i++) {
             </svg><span>In stock</span></p>
     </div>
 `
+    subtotal +=element.price * element.quantity;
     document.getElementById('cart-list').appendChild(li);
 
 }
@@ -88,3 +90,8 @@ document.getElementById('checkout-btn-success').onclick = () => {
         window.location.href = 'payment-success.html';
     }
 }
+let taxFee = (shippingFee + subtotal) * 0.02; 
+document.getElementById('shipping-fee').innerHTML = `&#8369; ${shippingFee}`
+document.getElementById('sub-total').innerHTML = `&#8369; ${subtotal}`
+document.getElementById('tax-total').innerHTML = `&#8369; ${parseFloat(taxFee)}`
+document.getElementById('order-total').innerHTML = `&#8369; ${shippingFee + subtotal + parseFloat(taxFee)}`

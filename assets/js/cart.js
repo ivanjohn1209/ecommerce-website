@@ -23,7 +23,8 @@ function formatAndMergeItems(arr) {
     return formattedArray;
 }
 
-// Call the function
+function renderUI() {
+    // Call the function
 const formattedItems = formatAndMergeItems(listCartItems);
 
 var subtotal = 0;
@@ -42,13 +43,12 @@ for (let i = 0; i < formattedItems.length; i++) {
                     <h3 class="avz"><a href="#" class="awd axs bkz">${element.name}</a></h3>
                 </div>
                 <div class="ku lx avz">
-                    <p class="axq">Sienna</p>
-                    <p class="jx afi afu atm axq">Large</p>
+                    <p class="axq">${element.gb}</p>
                 </div>
                 <p class="ku avz awd axu">$${element.price}</p>
             </div>
             <div class="lh bws cgv"><label for="quantity-0" class="t">Quantity, Basic
-                    Tee</label><select id="quantity-0" name="quantity-0"
+                    Tee</label><select id="quantity-${element.id}" name="quantity-0"
                     class="ub adu aez afv arp avj avx awd awn axs bbm bmk bmy bnc bnp cia">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -59,7 +59,7 @@ for (let i = 0; i < formattedItems.length; i++) {
                     <option value="7">7</option>
                     <option value="8">8</option>
                 </select>
-                <div class="aa de dn"><button type="button" class="fs ly aqp axo bkw"><span
+                <div class="aa de dn"><button id='remove-btn-item-cart-${element.id}' type="button" class="fs ly aqp axo bkw"><span
                             class="t">Remove</span><svg xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"
                             class="nz sb">
@@ -77,10 +77,31 @@ for (let i = 0; i < formattedItems.length; i++) {
             </svg><span>In stock</span></p>
     </div>
 `
-    subtotal +=element.price * element.quantity;
+    subtotal +=(element.price * element.quantity);
     document.getElementById('cart-list').appendChild(li);
 
+    document.getElementById(`remove-btn-item-cart-${element.id}`).onclick = () => {
+        let cartItems = localStorage.getItem('cart-items');
+        let list = cartItems ? JSON.parse(cartItems) : [];
+        let newList = list.filter(e => e.id !== element.id);
+        localStorage.setItem('cart-items', JSON.stringify(newList));
+        var eventName = 'cartCustomEvent';
+        var eventData = { type: 'add-item' };
+        var customEvent = new CustomEvent(eventName, { detail: eventData });
+        listCartItems = newList;
+        document.getElementById('cart-list').innerHTML = '';
+        window.dispatchEvent(customEvent);
+        renderUI();
+    };
 }
+    let taxFee = subtotal === 0 ? 0: (shippingFee + subtotal) * 0.02; 
+    document.getElementById('shipping-fee').innerHTML = `&#8369; ${subtotal === 0 ? 0: shippingFee}`
+    document.getElementById('sub-total').innerHTML = `&#8369; ${subtotal}`
+    document.getElementById('tax-total').innerHTML = `&#8369; ${parseFloat(taxFee)}`
+    document.getElementById('order-total').innerHTML = `&#8369; ${subtotal === 0 ? 0: (shippingFee + subtotal + parseFloat(taxFee))}`
+}
+
+renderUI();
 
 
 document.getElementById('checkout-btn-success').onclick = () => {
@@ -90,8 +111,4 @@ document.getElementById('checkout-btn-success').onclick = () => {
         window.location.href = 'payment-success.html';
     }
 }
-let taxFee = (shippingFee + subtotal) * 0.02; 
-document.getElementById('shipping-fee').innerHTML = `&#8369; ${shippingFee}`
-document.getElementById('sub-total').innerHTML = `&#8369; ${subtotal}`
-document.getElementById('tax-total').innerHTML = `&#8369; ${parseFloat(taxFee)}`
-document.getElementById('order-total').innerHTML = `&#8369; ${shippingFee + subtotal + parseFloat(taxFee)}`
+

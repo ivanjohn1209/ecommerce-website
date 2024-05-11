@@ -81,9 +81,21 @@ for (let i = 0; i < featuredProducts.length; i++) {
     <p class="ab avy awf bag">&#8369;${element.price}</p>
 </div>
 </div>
-<div class="lk"><a href="#" class="ab lx yz ze adu aez agy aih arl aru avz awd axu bic">Add to
-    bag<span class="t">, Zip Tote Basket</span></a></div>`
+<div class="lk"><button style="width:100%;" id='add-cart-item-${element.id}' class="ab lx yz ze adu aez agy aih arl aru avz awd axu bic">Add to
+bag<span class="t">, Zip Tote Basket</span></button></div>`
     document.getElementById('featured-container-list').appendChild(div)
+
+    
+    document.getElementById(`add-cart-item-${element.id}`).onclick = () => {
+        let cartItems = localStorage.getItem('cart-items');
+        let list = cartItems ? JSON.parse(cartItems) : [];
+        list.push(element);
+        localStorage.setItem('cart-items', JSON.stringify(list));
+        var eventName = 'cartCustomEvent';
+        var eventData = { type: 'add-item' };
+        var customEvent = new CustomEvent(eventName, { detail: eventData });
+        window.dispatchEvent(customEvent);
+    };
 }
 
 for (let i = 0; i < reviews.length; i++) {
